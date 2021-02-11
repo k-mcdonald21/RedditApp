@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Article } from './article.model';
 
 @Component({
@@ -8,22 +8,32 @@ import { Article } from './article.model';
 })
 export class ArticleComponent implements OnInit {
 
-  article:Article;
+  @Input() article: Article;
 
   constructor() {
-    this.article=new Article("Angular", "https://angular.io", 10);
-   }
+    //this.article=new Article("Angular", "https://angular.io", 10);
+  }
 
   ngOnInit(): void {
   }
 
-  voteUp():boolean {
-    this.article.votes ++;
+  voteUp(): boolean {
+    this.article.voteUp();
     return false;
   }
 
-  voteDown():boolean {
-    this.article.votes --;
+  voteDown(): boolean {
+    this.article.voteDown();
     return false;
+  }
+
+  domain(): string {
+    try {
+        const link: string = this.link.split('//')[1];
+        return link.split('/')[0];
+    }
+    catch (err) {
+      return null;
+    }
   }
 }
